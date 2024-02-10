@@ -1,0 +1,61 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: teal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.avatar{
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-image: url("https://source.unsplash.com/man-in-black-shirt-standing-near-building-ybxugA_CWoM");
+  background-size: cover;
+  background-position: center;
+  object-fit:cover;
+  box-shadow: 0 2px 5px 0 black;
+  position: relative;
+}
+
+.avatar::before, .avatar::after{
+  --scale: 0;
+  --tooltip-color: #0f6335b9;
+  --arrow-size: 10px;
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 100ms transform;
+  transform-origin: bottom center;
+}
+
+.avatar::before{ 
+  --translate-y: calc(-100% - (var(--arrow-size)));
+  content: attr(data-tooltip);
+  background: var(--tooltip-color);
+  border-radius: 20px;
+  color: white;
+  padding: 2.5rem;
+  width: max-content;
+  font-size: 25px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.avatar:hover::before, .avatar:hover::after {
+  --scale: 1;
+}
+
+.avatar::after {
+  --translate-y:calc(-1 * (var(--arrow-size)));
+  content:'';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
